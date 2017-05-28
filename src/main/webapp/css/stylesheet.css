@@ -1,0 +1,40 @@
+@charset "utf-8";
+
+html,body,div,h3,ul,li,img{
+margin:0;
+padding:0;
+}
+article, aside, figure, footer, header, hgroup,
+menu, nav, section { display: block; }
+
+body{
+background:gray;
+
+}
+
+.container{
+width:700px;
+margin:30px auto 0;
+}
+
+.gallery {
+width:528px;
+margin:auto;
+}
+.gallery ul{
+list-style:none;
+
+}
+
+.gallery li{
+float:left;
+margin:10px;
+}
+
+.gallery img{
+display:block; 
+padding:5px;
+background:pitch;
+border:1px solid:pitch;
+box-shadow:1px 2px 2px pitch;
+}

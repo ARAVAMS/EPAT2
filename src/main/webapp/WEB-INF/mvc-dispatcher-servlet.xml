@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- This configuration file contains the context information for ECESpringMVCWEB 
+	project. This file is configured in web.xml. This file is being read to create 
+	the ECESpringMVCWEB context.This file will be read after web application 
+	context is created.root context is parent for web application context .After 
+	the ECESpringMVCWEB context is created, it looks for existing parent 
+	context. If the parent context already exists then that parent context is 
+	set in ECESpringMVCWEB context. web application context is parent for 
+	ECESpringMVCWEB context. All Web layer spring components are scanned 
+	in this files. All resource bundle files are configured in this file.DSFJExceptionResolver 
+	is also configured in this file -->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc" xmlns:jee="http://www.springframework.org/schema/jee"
+	xmlns:lang="http://www.springframework.org/schema/lang" xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:webflow="http://www.springframework.org/schema/webflow-config"
+	xmlns:p="http://www.springframework.org/schema/p" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:security="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+		http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-3.0.xsd
+		http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-3.0.xsd
+		http://www.springframework.org/schema/lang http://www.springframework.org/schema/lang/spring-lang-3.0.xsd
+		http://www.springframework.org/schema/webflow-config http://www.springframework.org/schema/webflow-config/spring-webflow-config-2.0.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd
+		http://www.springframework.org/schema/security 
+	    http://www.springframework.org/schema/security/spring-security-3.0.xsd">
+
+	<context:property-placeholder location="classpath:jdbc.properties" />
+	<context:component-scan base-package="com.epat2" />
+	
+	<mvc:resources mapping="resources/**"
+	location="/css/ , /css/themes/base/ , /css/themes/ui-lightness/ , /images/, /js/, /js/jquery/, /local/, /jsp/" />
+
+	<mvc:annotation-driven />
+	<!-- <mvc:default-servlet-handler /> -->
+
+	<tx:annotation-driven transaction-manager="hibernateTransactionManager" />
+
+<bean id="tilesConfigurer" class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
+    <property name="definitions" value="WEB-INF/defs/tiles.xml"/>
+</bean>
+<bean id="ajaxViewResolver" class="org.springframework.js.ajax.AjaxUrlBasedViewResolver" p:order="0">
+        <property name="viewClass" value="com.epat2.util.AjaxTilesView"/>
+</bean>
+<bean id="viewResolver" class="org.springframework.web.servlet.view.tiles3.TilesViewResolver" p:order="1">
+</bean>
+
+<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+	<property name="driverClassName" value="org.postgresql.Driver" />
+	<property name="url" value="jdbc:postgresql://localhost:5432/rt3" />
+	<property name="username" value="postgres" />
+	<property name="password" value="admin" />
+</bean>
+
+	<bean id="sessionFactory"
+	class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+	<property name="dataSource" ref="dataSource" />
+	<property name="annotatedClasses">
+		<list>
+			<value>com.epat2.model.EmployeeDetail</value>
+			<value>com.epat2.model.EmpOrgUserDetail</value>
+			<value>com.epat2.model.OrganizationDetail</value>
+			<value>com.epat2.model.OrganizationGroupDetail</value>
+			<value>com.epat2.model.OrganizationGroupProjectDetail</value>
+			<value>com.epat2.model.OrganizationSpace</value>
+			<value>com.epat2.model.OrganizationUserRolesMapping</value>
+			<value>com.epat2.model.UserRole</value>
+		</list>
+	</property>
+	<property name="hibernateProperties">
+		<props>
+			<prop key="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</prop>
+			<prop key="hibernate.show_sql">true</prop>
+			<prop key="hibernate.hbm2ddl.auto">update</prop>
+		</props>
+	</property>
+</bean>
+
+	<bean id="hibernateTransactionManager"
+		class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+
+
+	<!-- each translation message file should be placed here -->
+	<bean id="messageSource"
+		class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+		<property name="basenames">
+			<list>
+				<value>/WEB-INF/i18n/configurationGroups</value>
+			</list>
+		</property>
+	</bean>  
+
+
+</beans>
+
+
+

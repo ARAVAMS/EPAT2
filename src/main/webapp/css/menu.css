@@ -1,0 +1,31 @@
+/*
+ * jsTree default theme 1.0
+ * Supported features: dots/no-dots, icons/no-icons, focused, loading
+ * Supported plugins: ui (hovered, clicked), checkbox, contextmenu, search
+ */
+
+.jstree-default li{
+	margin-left: 10px;
+	background: #387D3C;
+}
+.jstree-default li a{
+	font-size:16px;
+	font-family:calibri;
+	color:white;
+	font-weight: bold;
+}
+
+.jstree-default li ul li a{
+	font-size:13px;
+	font-family:calibri;
+	color:#666666;
+	font-weight: bold;
+}
+.jstree-default li ul{
+	background: #e7e8e8;
+}
+.jstree-default li ul li {
+	margin-left: 10px;
+	background: #e7e8e8;
+}
+
